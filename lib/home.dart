@@ -18,7 +18,7 @@ class _HomeState extends State<Home> {
     'error',
     'info',
   ];
-  String? action1;
+  String? action1 = '';
   String action2 = '';
 
   @override

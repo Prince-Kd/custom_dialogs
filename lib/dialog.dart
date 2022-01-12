@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 class CustomDialog extends StatelessWidget {
   String? title;
@@ -11,10 +12,10 @@ class CustomDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
+    return CupertinoAlertDialog(
+      // shape: RoundedRectangleBorder(
+      //   borderRadius: BorderRadius.circular(10),
+      // ),
       title: Column(
         children: [
           title == 'Info'
@@ -41,7 +42,7 @@ class CustomDialog extends StatelessWidget {
                           size: 100,
                         ),
           Text(
-            title!.toUpperCase(),
+            title!,
             style: TextStyle(
               color: title == 'Info'
                   ? Colors.amber
@@ -63,7 +64,7 @@ class CustomDialog extends StatelessWidget {
           fontSize: 20,
         ),
       ),
-      actionsAlignment: MainAxisAlignment.center,
+      //actionsAlignment: MainAxisAlignment.center,
       actions: [
         Padding(
           padding: const EdgeInsets.all(8.0),
