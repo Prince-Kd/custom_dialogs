@@ -1,5 +1,6 @@
 
 import 'package:custom_dialogs/dialog.dart';
+import 'package:custom_dialogs/dialog_details.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -10,16 +11,12 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  String title = 'Info';
-  String? content;
-  String type = 'success';
+  DialogDetails details = DialogDetails();
   List alertType = [
     'success',
     'error',
     'info',
   ];
-  String? action1 = '';
-  String action2 = '';
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +38,7 @@ class _HomeState extends State<Home> {
                 ),
                 onChanged: (value) {
                   setState(() {
-                    title = value;
+                    details.title = value;
                   });
                 },
               ),
@@ -54,7 +51,7 @@ class _HomeState extends State<Home> {
                 ),
                 onChanged: (value) {
                   setState(() {
-                    content = value;
+                    details.content = value;
                   });
                 },
               ),
@@ -63,7 +60,7 @@ class _HomeState extends State<Home> {
                 decoration: const InputDecoration(
                   contentPadding: EdgeInsets.all(10.0)
                 ),
-                  value: type,
+                  value: details.type,
                   items: alertType
                       .map((e) => DropdownMenuItem(
                             child: Text(e, style: const TextStyle(fontSize: 20,),),
@@ -72,7 +69,7 @@ class _HomeState extends State<Home> {
                       .toList(),
                   onChanged: (value) {
                     setState(() {
-                      type = value as String;
+                      details.type = value as String;
                     });
                   }),
               const SizedBox(height: 20,),
@@ -85,7 +82,7 @@ class _HomeState extends State<Home> {
                 ),
                 onChanged: (value) {
                   setState(() {
-                    action1 = value;
+                    details.action1 = value;
                   });
                 },
               ),
@@ -98,7 +95,7 @@ class _HomeState extends State<Home> {
                 ),
                 onChanged: (value) {
                   setState(() {
-                    action2 = value;
+                    details.action2 = value;
                   });
                 },
               ),
@@ -106,9 +103,8 @@ class _HomeState extends State<Home> {
               ElevatedButton(
                 style: ElevatedButton.styleFrom(padding: EdgeInsets.all(10)),
                   onPressed: (){
-                  print('$action1 $action2');
                 showDialog(context: context, builder: (context){
-                  return CustomDialog(type: type, title: title, content: content, actions: [action1! == '' ? 'OK' : action1!, action2],);
+                  return CustomDialog(details: details);
                 });
               }, child: const Text('Open dialog', style: TextStyle(fontSize: 20),))
             ],

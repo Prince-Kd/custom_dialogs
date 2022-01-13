@@ -1,13 +1,11 @@
+import 'package:custom_dialogs/dialog_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 class CustomDialog extends StatelessWidget {
-  String? title;
-  String? content;
-  String? type;
-  List<String>? actions;
+  DialogDetails details;
 
-  CustomDialog({Key? key, this.title = 'Info', this.content, this.type, this.actions})
+  CustomDialog({Key? key, required this.details})
       : super(key: key);
 
   @override
@@ -18,39 +16,11 @@ class CustomDialog extends StatelessWidget {
       // ),
       title: Column(
         children: [
-          title == 'Info'
-              ? const Icon(
-                  Icons.info,
-                  color: Colors.amber,
-                  size: 100,
-                )
-              : type == 'success'
-                  ? const Icon(
-                      Icons.check_circle,
-                      color: Colors.green,
-                      size: 100,
-                    )
-                  : type == 'error'
-                      ? const Icon(
-                          Icons.error,
-                          color: Colors.red,
-                          size: 100,
-                        )
-                      : const Icon(
-                          Icons.warning,
-                          color: Colors.amber,
-                          size: 100,
-                        ),
+          details.icon(),
           Text(
-            title!,
+            details.title!,
             style: TextStyle(
-              color: title == 'Info'
-                  ? Colors.amber
-                  : type == 'success'
-                      ? Colors.green
-                      : type == 'error'
-                          ? Colors.red
-                          : Colors.amber,
+              color: details.titleColor(),
               fontSize: 30,
               fontWeight: FontWeight.w600,
             ),
@@ -58,7 +28,7 @@ class CustomDialog extends StatelessWidget {
         ],
       ),
       content: Text(
-        content ?? '',
+        details.content!,
         textAlign: TextAlign.center,
         style: const TextStyle(
           fontSize: 20,
@@ -70,24 +40,27 @@ class CustomDialog extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: actions!.map((String action) => SizedBox(
-              width: 120,
-              child: action == '' ? const SizedBox() : ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    primary: actions![0] == action ? Colors.green : Colors.red,
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text(
-                  action.toUpperCase(),
-                  style: const TextStyle(
-                    fontSize: 20,
+            children: details.actions.map((action){
+              return action == '' ? (Container()) : (Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: action == '' ? 0 :  10),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      primary: details.actions[0] == action ? Colors.green : Colors.red,
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    action.toUpperCase(),
+                    style: const TextStyle(
+                      fontSize: 20,
+                    ),
                   ),
                 ),
               ),
-            )).toList()
+    ));}).toList()
           ),
         )
       ],
