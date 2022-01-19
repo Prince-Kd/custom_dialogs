@@ -11,9 +11,6 @@ class CustomDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoAlertDialog(
-      // shape: RoundedRectangleBorder(
-      //   borderRadius: BorderRadius.circular(10),
-      // ),
       title: Column(
         children: [
           details.icon(),
